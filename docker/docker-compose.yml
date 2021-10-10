@@ -1,0 +1,18 @@
+version: "3.9"
+services:   
+  pg:
+    image: postgres:13-alpine
+    # log_min_duration_statement - Causes the duration of each completed statement to be logged if the statement ran for at
+    #   least the specified number of milliseconds. Setting this to zero prints all statement durations.
+    # max_connections - Determines the maximum number of concurrent connections to the database server. 
+    #   The default is typically 100 connections
+    # command: postgres -c =1000 -c log_min_duration_statement=0
+    command: postgres -c max_connections=1000
+    environment:
+      POSTGRES_USER: gsf-user
+      POSTGRES_PASSWORD: gsf-pswd
+      POSTGRES_DB: gsf-db
+    ports:
+      - 54320:5432
+
+

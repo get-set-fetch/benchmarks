@@ -1,0 +1,61 @@
+{
+    "storage": {
+        "client": "sqlite3",
+        "useNullAsDefault": true,
+        "connection": {
+            "filename": "results/${pkgVersion}/sqlite/${resourceNo}/benchmark.sqlite"
+        },
+        "debug": false
+    },
+    "client": {
+        "name": "cheerio"
+    },
+    "project": {
+        "name": "Benchmarks",
+        "pipeline": "dom-static-content",
+        "pluginOpts": [
+            {
+				"name": "PerfNodeFetchPlugin",
+				"path": "src/plugins/PerfNodeFetchPlugin.ts",
+				"replace": "NodeFetchPlugin"
+			},
+            {
+                "name": "ExtractUrlsPlugin",
+                "maxDepth": -1
+            },
+            {
+                "name": "ExtractHtmlContentPlugin",
+                "selectorPairs": [
+                    {
+                        "contentSelector": "h1",
+                        "label": "header"
+                    }
+                ]
+            },
+            {
+				"name": "InsertResourcesPlugin",
+				"maxResources": 1e1
+			}
+        ],
+        "resources": [
+			{
+				"url": "https://www.mock-domain.org/link-0.html"
+			}
+		]
+    },
+    "concurrency": {
+        "domain": {
+            "maxRequests": 1,
+            "delay": 5
+        },
+        "proxy": {
+            "maxRequests": 1,
+            "delay": 5
+        },
+        "session": {
+            "maxRequests": 1,
+            "delay": 5
+        }
+    }
+}
+  

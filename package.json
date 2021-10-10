@@ -1,0 +1,36 @@
+{
+  "name": "@get-set-fetch/scraper",
+  "version": "0.1.0",
+  "scripts": {
+    "lint": "eslint src/**/*.ts",
+    "benchmark": "ts-node src/benchmark.ts",
+    "chart": "ts-node src/chart.ts"
+  },
+  "author": "Andrei Sabau",
+  "license": "MIT",
+  "homepage": "https://github.com/get-set-fetch/benchmarks",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/get-set-fetch/benchmarks.git"
+  },
+  "dependencies": {
+    "@get-set-fetch/scraper": "^0.7.1",
+    "canvas": "^2.8.0",
+    "chart.js": "^3.5.1",
+    "cheerio": "^1.0.0-rc.10",
+    "knex": "^0.95.11",
+    "pg": "^8.7.1",
+    "pino": "^6.13.3",
+    "sqlite3": "^5.0.2"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.32.0",
+    "@typescript-eslint/parser": "^4.32.0",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "ts-node": "^10.2.1",
+    "typescript": "^4.4.3"
+  }
+}

@@ -1,0 +1,70 @@
+{
+    "storage": {
+        "client": "pg",
+        "useNullAsDefault": true,
+        "connection": {
+            "host": "localhost",
+            "port": "54320",
+            "user": "gsf-user",
+            "password": "gsf-pswd",
+            "database": "gsf-db"
+        },
+        "pool": { 
+            "min": 2, 
+            "max": 200
+        },
+        "acquireConnectionTimeout": 60000,
+        "debug": false
+    },
+    "client": {
+        "name": "cheerio"
+    },
+    "project": {
+        "name": "Benchmarks",
+        "pipeline": "dom-static-content",
+        "pluginOpts": [
+            {
+				"name": "PerfNodeFetchPlugin",
+				"path": "src/plugins/PerfNodeFetchPlugin.ts",
+				"replace": "NodeFetchPlugin",
+                "maxResources": 1e3
+			},
+            {
+                "name": "ExtractUrlsPlugin",
+                "maxDepth": -1
+            },
+            {
+                "name": "ExtractHtmlContentPlugin",
+                "selectorPairs": [
+                    {
+                        "contentSelector": "h1",
+                        "label": "header"
+                    }
+                ]
+            },
+            {
+				"name": "InsertResourcesPlugin"
+			}
+        ],
+        "resources": [
+			{
+				"url": "https://www.mock-domain.org/link-1.html"
+			}
+		]
+    },
+    "concurrency": {
+        "domain": {
+            "maxRequests": 100,
+            "delay": 1
+        },
+        "proxy": {
+            "maxRequests": 100,
+            "delay": 1
+        },
+        "session": {
+            "maxRequests": 100,
+            "delay": 1
+        }
+    }
+}
+  
