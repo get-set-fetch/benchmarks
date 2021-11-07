@@ -20,7 +20,7 @@ export default class ProgressiveChart {
   chart: Chart;
 
   constructor(title: string, resourceNo:number) {
-    this.canvas = createCanvas(800, 800);
+    this.canvas = createCanvas(800, 300);
     const context = this.canvas.getContext('2d');
 
     this.chart = new Chart(context, this.getLineConfig(title, resourceNo));
@@ -35,8 +35,11 @@ export default class ProgressiveChart {
         // parsing: true,
 
         plugins: {
+          legend: {
+            display: false,
+          },
           title: {
-            display: true,
+            display: false,
             text: title,
           },
           // decimation: {
@@ -49,17 +52,37 @@ export default class ProgressiveChart {
         scales: {
           x: {
             type: 'linear',
-            min: 1,
+            min: 0,
+            title: {
+              display: true,
+              text: 'Scraped Resources',
+              color: '#333',
+              font: {
+                size: 16,
+              },
+            },
+            ticks: {
+              color: '#333',
+            },
           },
           y: {
             type: 'linear',
             min: 0,
-            // max: 60,
+            title: {
+              display: true,
+              text: 'Minutes',
+              color: '#333',
+              font: {
+                size: 16,
+              },
+            },
+            ticks: {
+              color: '#333',
+            },
           },
         },
       },
       data: {
-        labels: new Array(resourceNo).fill(0).map((val, idx) => idx + 1),
         datasets: [],
       },
     };
@@ -82,7 +105,7 @@ export default class ProgressiveChart {
     this.chart.update();
   }
 
-  addDataset(label: string, data: number[]) {
+  addAvgPluginExecTimeDataset(label: string, data: number[]) {
     this.chart.data.datasets.push({
       label,
       data: data.map(val => val),
@@ -91,6 +114,25 @@ export default class ProgressiveChart {
       indexAxis: 'x',
       pointBorderWidth: 0,
       pointRadius: 0,
+    });
+
+    this.chart.update();
+  }
+
+  addTotalExecTimes(label: string, data:number[], step:number = 1e3) {
+    this.chart.data.datasets.push({
+      label,
+      data: data.map((elapsed, idx) => ({ x: idx * step, y: elapsed / 1e3 / 60 })),
+      borderColor: ProgressiveChart.COLORS[this.chart.data.datasets.length % ProgressiveChart.COLORS.length],
+
+      borderWidth: 2,
+      borderCapStyle: 'round',
+      showLine: true,
+      cubicInterpolationMode: 'monotone',
+
+      pointBorderWidth: 0,
+      pointRadius: 0,
+      pointBackgroundColor: '#f0f',
     });
 
     this.chart.update();

@@ -28,13 +28,14 @@ function benchmark(dbClient: DbClient, resourceNo: number) {
   }
 
   // write all INFO and above messages to 'scrape.log'
-  setLogger({ level: 'info' }, destination(`results/${pkgVersion}/${dbClient}/${resourceNo.toExponential()}/scrape.log`));
+  setLogger({ level: 'error' }, destination(`results/${pkgVersion}/${dbClient}/${resourceNo.toExponential()}/scrape.log`));
 
   /* create a scraper instance with the above settings */
   const scraper = new BenchmarkScraper(config.storage, config.client);
 
   scraper.on(ScrapeEvent.ProjectScraped, async (project: Project) => {
-    await scraper.benchmark.exportExecTimes(`results/${pkgVersion}/${dbClient}/${resourceNo.toExponential()}/exec-times.csv`);
+    await scraper.benchmark.exportScrapeResourceExecTimes(`results/${pkgVersion}/${dbClient}/${resourceNo.toExponential()}/scrape-resource-exec-times.csv`);
+    await scraper.benchmark.exportTotalExecTimes(`results/${pkgVersion}/${dbClient}/${resourceNo.toExponential()}/total-exec-times.csv`);
 
     const exporter = new CsvExporter({ filepath: `results/${pkgVersion}/${dbClient}/${resourceNo.toExponential()}/mocked-content.csv` });
     await exporter.export(project);
@@ -44,4 +45,7 @@ function benchmark(dbClient: DbClient, resourceNo: number) {
   scraper.scrape(config.project, config.concurrency);
 }
 
-benchmark('pg', 3e+4);
+/*
+1e6 log should always be on error
+*/
+benchmark('sqlite', 1e+4);
