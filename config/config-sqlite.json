@@ -17,7 +17,8 @@
             {
 				"name": "PerfNodeFetchPlugin",
 				"path": "src/plugins/PerfNodeFetchPlugin.ts",
-				"replace": "NodeFetchPlugin"
+				"replace": "NodeFetchPlugin",
+                "maxResources": 1e3
 			},
             {
                 "name": "ExtractUrlsPlugin",
@@ -33,28 +34,27 @@
                 ]
             },
             {
-				"name": "InsertResourcesPlugin",
-				"maxResources": 1e1
+				"name": "InsertResourcesPlugin"
 			}
         ],
         "resources": [
 			{
-				"url": "https://www.mock-domain.org/link-0.html"
+				"url": "https://www.mock-domain.org/link-1.html"
 			}
 		]
     },
     "concurrency": {
         "domain": {
-            "maxRequests": 1,
-            "delay": 5
+            "maxRequests": 100,
+            "delay": 1
         },
         "proxy": {
-            "maxRequests": 1,
-            "delay": 5
+            "maxRequests": 100,
+            "delay": 1
         },
         "session": {
-            "maxRequests": 1,
-            "delay": 5
+            "maxRequests": 100,
+            "delay": 1
         }
     }
 }
