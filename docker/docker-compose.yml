@@ -7,7 +7,7 @@ services:
     # max_connections - Determines the maximum number of concurrent connections to the database server. 
     #   The default is typically 100 connections
     # command: postgres -c =1000 -c log_min_duration_statement=0
-    command: postgres -c max_connections=1000
+    command: postgres -c max_connections=1000 -c log_min_duration_statement=10
     environment:
       POSTGRES_USER: gsf-user
       POSTGRES_PASSWORD: gsf-pswd
