@@ -1,0 +1,27 @@
+- hosts: all
+  vars_files:
+    - vault.yml
+
+  roles:
+    - role: gsf-scraper-setup
+      vars:
+        db:
+          name: getsetfetch
+          user: "{{ vault_db_user }}"
+          password: "{{ vault_db_password }}"
+          pool:
+            min: 90
+            max: 90
+        scraper:
+          uv_threadpool_size: 4 + 90
+          npm_install:
+            - knex@0.95.14
+            - pg@8.7.1
+            - cheerio@1.0.0-rc.10
+            # - "@get-set-fetch/scraper@0.9.0"
+            - get-set-fetch-scraper-0.9.0.tgz
+          log:
+            level: info
+          files:
+              additional:
+                  - PerfNodeFetchPlugin.js
