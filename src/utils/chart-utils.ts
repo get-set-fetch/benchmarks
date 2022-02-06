@@ -55,7 +55,7 @@ export default class ProgressiveChart {
             min: 0,
             title: {
               display: true,
-              text: 'Scraped Resources',
+              text: 'Minutes',
               color: '#333',
               font: {
                 size: 16,
@@ -70,7 +70,7 @@ export default class ProgressiveChart {
             min: 0,
             title: {
               display: true,
-              text: 'Minutes',
+              text: 'Scraped Resources',
               color: '#333',
               font: {
                 size: 16,
@@ -123,6 +123,25 @@ export default class ProgressiveChart {
     this.chart.data.datasets.push({
       label,
       data: data.map((elapsed, idx) => ({ x: idx * step, y: elapsed / 1e3 / 60 })),
+      borderColor: ProgressiveChart.COLORS[this.chart.data.datasets.length % ProgressiveChart.COLORS.length],
+
+      borderWidth: 2,
+      borderCapStyle: 'round',
+      showLine: true,
+      cubicInterpolationMode: 'monotone',
+
+      pointBorderWidth: 0,
+      pointRadius: 0,
+      pointBackgroundColor: '#f0f',
+    });
+
+    this.chart.update();
+  }
+
+  addCummulativePerMinute(label: string, data:number[]) {
+    this.chart.data.datasets.push({
+      label,
+      data: data.map((elapsed, idx) => ({ x: idx, y: elapsed })),
       borderColor: ProgressiveChart.COLORS[this.chart.data.datasets.length % ProgressiveChart.COLORS.length],
 
       borderWidth: 2,
