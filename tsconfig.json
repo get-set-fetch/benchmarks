@@ -11,6 +11,6 @@
       "useDefineForClassFields": false
   },
   "include": [
-    "./"
+    "src"
   ],
 }
