@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "scripts": {
     "lint": "eslint src/**/*.ts",
-    "benchmark": "ts-node src/benchmark.ts",
+    "docker:benchmark": "ts-node src/docker/benchmark.ts",
+    "cloud:benchmark": "ts-node src/cloud/cloud-benchmark.ts",
     "chart": "ts-node src/chart.ts"
   },
   "author": "Andrei Sabau",
