@@ -2,8 +2,8 @@
 /* for standalone projects replace '../../src/index' with '@get-set-fetch/scraper' */
 import fs from 'fs';
 import { version as pkgVersion } from '@get-set-fetch/scraper/package.json';
-import { loadPluginBenchmarks, loadTotalTimes } from './utils/data-utils';
-import ProgressiveChart from './utils/chart-utils';
+import { loadPluginBenchmarks, loadTotalTimes } from '../utils/data-utils';
+import ProgressiveChart from '../utils/chart-utils';
 
 const availablePkgVersions = [ '0.7.1', '0.7.2' ];
 type DbClient = 'sqlite'|'pg';
