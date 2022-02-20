@@ -1,0 +1,61 @@
+{
+  "storage": {
+    "client": "pg",
+    "useNullAsDefault": true,
+    "connection": {
+      "host": "{{ db_host }}",
+      "port": "5432",
+      "user": "{{ db.user }}",
+      "password": "{{ db.password }}",
+      "database": "{{ db.name }}"
+    },
+    "pool": { 
+      "min": {{ db.pool.min }},
+      "max": {{ db.pool.max }}
+    },
+    "debug": false
+  },
+  "client": {
+    "name": "cheerio"
+  },
+  "project": {
+    "name": "top-1",
+    "resourcePath": "<resource_path>",
+    "pipeline": "dom-static-content",
+    "pluginOpts": [
+      {
+        "name": "PerfNodeFetchPlugin",
+        "path": "PerfNodeFetchPlugin.js",
+        "replace": "NodeFetchPlugin",
+        "bulkSize": -1
+      },
+      {
+        "name": "ExtractUrlsPlugin",
+        "maxDepth": -1
+      },
+      {
+        "name": "ExtractHtmlContentPlugin",
+        "selectorPairs": [
+          {
+            "contentSelector": "h1",
+            "label": "header"
+          }
+        ]
+      }
+    ]
+  },
+  "concurrency": {
+    "domain": {
+      "maxRequests": 100,
+      "delay": 1
+    },
+    "proxy": {
+        "maxRequests": 100,
+        "delay": 1
+    },
+    "session": {
+        "maxRequests": 100,
+        "delay": 1
+    }
+  }
+}

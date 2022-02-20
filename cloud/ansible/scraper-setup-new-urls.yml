@@ -10,18 +10,19 @@
           user: "{{ vault_db_user }}"
           password: "{{ vault_db_password }}"
           pool:
-            min: 90
-            max: 90
+            min: 10
+            max: 10
         scraper:
-          uv_threadpool_size: 4 + 90
+          uv_threadpool_size: 14
           npm_install:
             - knex@0.95.14
             - pg@8.7.1
             - cheerio@1.0.0-rc.10
-            # - "@get-set-fetch/scraper@0.9.0"
-            - get-set-fetch-scraper-0.9.0.tgz
+            - "@get-set-fetch/scraper@0.10.0"
+            # - get-set-fetch-scraper-0.9.0.tgz
           log:
-            level: info
+            level: error
           files:
+              gsf_config: templates/gsf-config-new-urls.json.j2
               additional:
                   - PerfNodeFetchPlugin.js

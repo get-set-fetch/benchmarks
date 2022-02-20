@@ -42,6 +42,12 @@ export default class PerfNodeFetchPlugin extends NodeFetchPlugin {
           title: 'Max Resources',
           description: 'Maximum number of resources to be mocked.',
         },
+        bulkSize: {
+          type: 'integer',
+          default: 50,
+          title: 'Bulk Size',
+          description: 'Every {bulkSize}th link contains bulkSize new links, simulating scraping results pages with multiple entries per result page',
+        },
       },
     } as const;
   }
@@ -53,22 +59,21 @@ export default class PerfNodeFetchPlugin extends NodeFetchPlugin {
   }
 
   async fetch(resource: Resource): Promise<Partial<Resource>> {
-    // "https://www.mock-domain.org/link-".length -> 33
-    const resourceNo:number = parseInt(resource.url.substring(33, resource.url.length - 5), 10);
+    // ex: "https://www.mock-domain.org/link-10.html"
+    const resourceNoMatch = resource.url.match(/\d+/);
+    const resourceNo:number = resourceNoMatch ? parseInt(resourceNoMatch[0], 10) : 0;
 
-    /*
-    every {bulkSize}th link contains bulkSize new links
-    a value of 50 simulates scraping results pages with 50 entries per page
-    */
-    const bulkSize = 50;
-
+    const { bulkSize } = this.opts;
     const links:string[] = [];
-    if (resourceNo < this.opts.maxResources && (resourceNo === 1 || resourceNo % bulkSize === 0)) {
+
+    if (bulkSize > 0) {
+      if (resourceNo < this.opts.maxResources && (resourceNo === 1 || resourceNo % bulkSize === 0)) {
       // 1st insert should take into account the initial link-1 link
-      const toAddNo = resourceNo === 1 ? bulkSize - 1 : bulkSize;
-      for (let i = 1; i <= toAddNo; i += 1) {
-        const linkNo = resourceNo + i;
-        links.push(`<a href="link-${linkNo}.html">resource ${linkNo}</a>`);
+        const toAddNo = resourceNo === 1 ? bulkSize - 1 : bulkSize;
+        for (let i = 1; i <= toAddNo; i += 1) {
+          const linkNo = resourceNo + i;
+          links.push(`<a href="link-${linkNo}.html">resource ${linkNo}</a>`);
+        }
       }
     }
 
