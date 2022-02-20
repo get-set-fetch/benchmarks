@@ -14,14 +14,14 @@ There are also some fine grain, plugin level benchmarks available via docker to 
 
 The first scraper instance is responsible for creating the scraping project. It also adds 1000k URLs in the database queue loaded from an external csv file. The remaining scraper instances are in discovery mode, consuming the database queue. Version used: 0.10.0.
 
-<object type="image/svg+xml" data="https://get-set-fetch.github.io/benchmarks/charts/v0.10-total-exec-time-1e6-saved-entries.svg"></object>
+![](https://get-set-fetch.github.io/benchmarks/charts/v0.10.0-total-exec-time-1e6-saved-entries.svg)
 
 Each scraper instance has a concurrency limit of 100. This means maximum 100 URLs are scraped in parallel. Using 4 instances ~1850 URLs are scraped every second. 8 scraper instances put a 100% CPU load on the vm hosting the database for a total of ~2750 URLs scraped per second. In real world scenarios this will definitely not be your bottleneck.
 
 ### 1 URL initial queue length
 URLs to-be-scraped are continuously discovered. This scenario simulates scraping result pages with 50 URLs to-be-discovered per page. Only a single scraper instance is used as the queue length always stays under 50.
 
-<object type="image/svg+xml" data="https://get-set-fetch.github.io/benchmarks/charts/v0.10.0-total-exec-time-1e6-new-entries.svg"></object>
+![](https://get-set-fetch.github.io/benchmarks/charts/v0.10.0-total-exec-time-1e6-new-entries.svg)
 
 Like in the previous scenario, the scraper instance has a concurrency limit of 100. 
 The limit is never reached due to the 50 results per page enforcement. ~210 URLs are scraped every second.
