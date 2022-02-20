@@ -71,6 +71,12 @@ export default class LineChart {
         }
     ]]>`);
 
+    this.wrapper
+      .append('rect')
+      .attr('fill', 'white')
+      .attr('width', '100%')
+      .attr('height', '100%');
+
     this.bounds = this.wrapper
       .append('g')
       .style(
