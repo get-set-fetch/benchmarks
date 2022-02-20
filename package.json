@@ -1,10 +1,11 @@
 {
   "name": "@get-set-fetch/scraper",
   "version": "0.1.0",
+  "type": "module",
   "scripts": {
     "lint": "eslint src/**/*.ts",
     "docker:benchmark": "ts-node src/docker/benchmark.ts",
-    "cloud:benchmark": "ts-node src/cloud/cloud-benchmark.ts",
+    "cloud:benchmark": "node --loader ts-node/esm --experimental-specifier-resolution=node src/cloud/cloud-benchmark.ts",
     "chart": "ts-node src/chart.ts"
   },
   "author": "Andrei Sabau",
@@ -16,15 +17,15 @@
   },
   "dependencies": {
     "@get-set-fetch/scraper": "^0.7.1",
-    "canvas": "^2.8.0",
-    "chart.js": "^3.5.1",
     "cheerio": "^1.0.0-rc.10",
-    "knex": "^0.95.11",
-    "pg": "^8.7.1",
-    "pino": "^6.13.3",
-    "sqlite3": "^5.0.2"
+    "d3": "^7.3.0",
+    "jsdom": "^19.0.0",
+    "node-fetch": "^3.2.0",
+    "pino": "^6.13.3"
   },
   "devDependencies": {
+    "@types/d3": "^7.1.0",
+    "@types/jsdom": "^16.2.14",
     "@rollup/plugin-commonjs": "^21.0.1",
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^13.1.3",
@@ -35,7 +36,7 @@
     "eslint-plugin-import": "^2.24.2",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "rollup": "^2.67.0",
-    "ts-node": "^10.2.1",
+    "ts-node": "^10.5.0",
     "typescript": "^4.4.3"
   }
 }

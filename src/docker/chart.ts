@@ -1,5 +1,4 @@
 /* eslint-disable no-template-curly-in-string */
-/* for standalone projects replace '../../src/index' with '@get-set-fetch/scraper' */
 import fs from 'fs';
 import { version as pkgVersion } from '@get-set-fetch/scraper/package.json';
 import { loadPluginBenchmarks, loadTotalTimes } from '../utils/data-utils';

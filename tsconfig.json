@@ -5,7 +5,7 @@
       "target": "esnext",
       "strict": false,
       "moduleResolution": "node",
-      "module": "commonjs",
+      "module": "ESNext",
       "allowJs": true,
       "newLine": "LF",
       "useDefineForClassFields": false
@@ -13,4 +13,9 @@
   "include": [
     "src"
   ],
+  "ts-node": {
+    "compilerOptions": {
+      "module": "ESNext"
+    }
+  }
 }
